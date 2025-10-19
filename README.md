@@ -1,23 +1,285 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# HNG Stage 0 - NestJS API with Cat Facts
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A NestJS-based REST API that provides user information along with dynamic cat facts from an external API.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
+## 🔗 GitHub Repository
+
+**Repository URL**: [https://github.com/Dev-Faith/HNG-Stage0](https://github.com/Dev-Faith/HNG-Stage0)
+
+## 📋 Description
+
+This project is a NestJS application that exposes a `/me` endpoint which returns user information along with a random cat fact fetched from the Cat Facts API. The endpoint demonstrates integration with external APIs, proper error handling, and follows REST API best practices.
+
+## ✨ Features
+
+- **GET /me** endpoint that returns:
+  - User information (email, name, stack)
+  - Current UTC timestamp in ISO 8601 format
+  - Random cat fact from Cat Facts API
+- Dynamic timestamp generation for each request
+- Graceful error handling for external API failures
+- Proper HTTP headers and status codes
+- Fallback mechanism when Cat Facts API is unavailable
+
+## 🛠️ Technology Stack
+
+- **Framework**: NestJS 11.x
+- **Runtime**: Node.js
+- **Language**: TypeScript 5.x
+- **HTTP Client**: Axios
+- **Package Manager**: npm
+
+## 📦 Dependencies
+
+### Production Dependencies
+- `@nestjs/common` - Core NestJS functionality
+- `@nestjs/core` - NestJS core module
+- `@nestjs/platform-express` - Express platform adapter
+- `@nestjs/axios` - Axios integration for HTTP requests
+- `axios` - Promise-based HTTP client
+- `reflect-metadata` - Metadata reflection API
+- `rxjs` - Reactive extensions library
+
+### Development Dependencies
+- `@nestjs/cli` - NestJS CLI tools
+- `@nestjs/testing` - Testing utilities
+- `typescript` - TypeScript compiler
+- `ts-node` - TypeScript execution engine
+- `jest` - Testing framework
+- `eslint` - Linting utility
+- `prettier` - Code formatter
+
+For a complete list of dependencies with versions, see [package.json](./package.json).
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+
+- **Node.js**: Version 18.x or higher
+- **npm**: Version 9.x or higher
+
+You can check your versions with:
+```bash
+node --version
+npm --version
+```
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/Dev-Faith/HNG-Stage0.git
+cd HNG-Stage0
+```
+
+### Step 2: Install Dependencies
+
+```bash
+npm install
+```
+
+This will install all required packages listed in `package.json`.
+
+## 🔧 Environment Variables
+
+This project currently does not require any environment variables for basic operation. However, you can optionally configure:
+
+### Optional Configuration
+
+Create a `.env` file in the root directory (optional):
+
+```env
+# Server Configuration
+PORT=3000
+
+# API Configuration (optional - defaults are set in code)
+CAT_FACTS_API_URL=https://catfact.ninja/fact
+API_TIMEOUT=5000
+```
+
+**Note**: If no `.env` file is provided, the application will use the following defaults:
+- Port: `3000`
+- Cat Facts API URL: `https://catfact.ninja/fact`
+- API Timeout: `5000ms`
+
+## 🏃 Running the Application
+
+### Development Mode (with auto-reload)
+
+```bash
+npm run start:dev
+```
+
+The server will start on `http://localhost:3000` with hot-reloading enabled.
+
+### Production Mode
+
+```bash
+# Build the application
+npm run build
+
+# Start in production mode
+npm run start:prod
+```
+
+### Standard Mode
+
+```bash
+npm run start
+```
+
+## 📡 API Endpoints
+
+### GET /me
+
+Returns user information along with a random cat fact.
+
+**Request:**
+```bash
+curl http://localhost:3000/me
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "user": {
+    "email": "your-email@example.com",
+    "name": "Your Full Name",
+    "stack": "NestJS/Node.js"
+  },
+  "timestamp": "2025-10-18T23:25:30.123Z",
+  "fact": "Cats are believed to be the only mammals who don't taste sweetness."
+}
+```
+
+**Response Headers:**
+- `Content-Type: application/json`
+
+**Status Codes:**
+- `200 OK` - Success
+
+## 🧪 Testing
+
+### Run Unit Tests
+
+```bash
+npm run test
+```
+
+### Run End-to-End Tests
+
+```bash
+npm run test:e2e
+```
+
+### Test Coverage
+
+```bash
+npm run test:cov
+```
+
+### Manual Testing
+
+Test the endpoint using curl:
+
+```bash
+# Basic request
+curl http://localhost:3000/me
+
+# With headers
+curl -i http://localhost:3000/me
+
+# Pretty print JSON
+curl http://localhost:3000/me | json_pp
+```
+
+Or use tools like:
+- **Postman**: Import the endpoint and test
+- **Insomnia**: Create a GET request to `http://localhost:3000/me`
+- **Browser**: Navigate to `http://localhost:3000/me`
+
+## 📁 Project Structure
+
+```
+├── src/
+│   ├── main.ts                 # Application entry point
+│   ├── app.module.ts           # Root module
+│   ├── app.controller.ts       # Root controller
+│   ├── app.service.ts          # Root service
+│   └── me/
+│       ├── me.module.ts        # Me module
+│       ├── me.controller.ts    # Me controller (handles /me endpoint)
+│       ├── me.service.ts       # Me service (business logic)
+│       └── dto/
+│           └── me-response.dto.ts  # Response data transfer object
+├── test/                       # E2E tests
+├── package.json               # Dependencies and scripts
+├── tsconfig.json              # TypeScript configuration
+├── nest-cli.json              # NestJS CLI configuration
+└── README.md                  # This file
+```
+
+## 🔍 How It Works
+
+1. **Request Handling**: When a GET request is made to `/me`, the `MeController` receives it
+2. **Service Layer**: The controller delegates to `MeService` which:
+   - Generates the current UTC timestamp
+   - Makes an HTTP request to Cat Facts API
+   - Constructs the response object
+3. **Error Handling**: If the Cat Facts API fails, a fallback message is used
+4. **Response**: The formatted JSON response is returned with appropriate headers
+
+## 🛡️ Error Handling
+
+The application includes robust error handling:
+
+- **External API Failures**: If Cat Facts API is down, returns a fallback message
+- **Network Timeouts**: 5-second timeout prevents hanging requests
+- **Logging**: All errors are logged for debugging purposes
+
+## 🔒 Best Practices Implemented
+
+- ✅ Modular architecture with separate modules, controllers, and services
+- ✅ TypeScript for type safety
+- ✅ DTO (Data Transfer Objects) for response structure
+- ✅ Dependency injection
+- ✅ Proper error handling and logging
+- ✅ Timeout configuration for external API calls
+- ✅ Fallback mechanisms for resilience
+- ✅ ISO 8601 timestamp format
+- ✅ RESTful API design
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit your changes: `git commit -am 'Add new feature'`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Submit a pull request
+
+## 📝 License
+
+This project is licensed under the UNLICENSED license.
+
+## 👤 Author
+
+Your Name - [GitHub Profile](https://github.com/Dev-Faith)
+
+## 🙏 Acknowledgments
+
+- [NestJS](https://nestjs.com/) - The progressive Node.js framework
+- [Cat Facts API](https://catfact.ninja/) - For providing random cat facts
+- HNG Internship Program
+
+## 📞 Support
+
+For issues, questions, or contributions, please:
+- Open an issue on [GitHub](https://github.com/Dev-Faith/HNG-Stage0/issues)
+- Contact the maintainer
+
+---
+
+**Built with ❤️ using NestJS**
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 

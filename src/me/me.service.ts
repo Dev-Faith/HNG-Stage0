@@ -25,8 +25,8 @@ export class MeService {
             return {
                 status: 'success',
                 user: {
-                    email: 'your-email@example.com', // Replace with your actual email
-                    name: 'Your Full Name', // Replace with your actual name
+                    email: 'engr.eyitope@gmail.com', // Replace with your actual email
+                    name: 'Faith Adebayo', // Replace with your actual name
                     stack: 'NestJS/Node.js', // Replace with your actual stack
                 },
                 timestamp,
@@ -39,8 +39,8 @@ export class MeService {
             return {
                 status: 'success',
                 user: {
-                    email: 'your-email@example.com', // Replace with your actual email
-                    name: 'Your Full Name', // Replace with your actual name
+                    email: 'engr.eyitope@gmail.com', // Replace with your actual email
+                    name: 'Faith Adebayo', // Replace with your actual name
                     stack: 'NestJS/Node.js', // Replace with your actual stack
                 },
                 timestamp,
